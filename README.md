@@ -1,6 +1,8 @@
 # Asterisk-integration
 **Asterisk integration for Home Assistant**
 
+[![HACS Badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
+
 This integration finds and adds all SIP and PJSIP devices to your Home Assistant.
 
 ## Roadmap
