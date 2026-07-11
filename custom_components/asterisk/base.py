@@ -8,12 +8,27 @@ class AsteriskDeviceEntity:
 
     def __init__(self, hass, entry, device):
         """Initialize the sensor."""
+        self._hass = hass
         self._device = device
         self._entry = entry
         self._unique_id_prefix = f"{entry.entry_id}_{device['extension']}"
         self._ami_client: AMIClient = hass.data[DOMAIN][entry.entry_id][CLIENT]
         self._name: str
         self._unique_id: str
+
+    def _schedule_update_ha_state(self):
+        """Schedule a state update for this entity.
+        
+        This is a helper method to properly update entity state from
+        synchronous event callbacks. It uses async_write_ha_state() which
+        is the modern way to update entity state in Home Assistant.
+        """
+        if hasattr(self, "async_write_ha_state"):
+            # Use modern async_write_ha_state if available
+            self.async_write_ha_state()
+        elif hasattr(self, "schedule_update_ha_state"):
+            # Fallback to legacy method for older Home Assistant versions
+            self.schedule_update_ha_state()
 
     @property
     def device_info(self):

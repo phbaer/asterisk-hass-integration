@@ -6,13 +6,13 @@
     ],
     "config_flow": true,
     "dependencies": [],
-    "documentation": "https://github.com/TECH7Fox/Asterisk-integration",
+    "documentation": "https://github.com/TECH7Fox/asterisk-hass-integration",
     "homekit": {},
     "iot_class": "local_polling",
-    "issue_tracker": "https://github.com/TECH7Fox/Asterisk-integration/issues",
+    "issue_tracker": "https://github.com/TECH7Fox/asterisk-hass-integration/issues",
     "loggers": ["custom_components.asterisk"],
     "requirements": ["asterisk-ami>=0.1.7"],
     "ssdp": [],
-    "version": "1.0.5",
+    "version": "1.0.7",
     "zeroconf": []
 }

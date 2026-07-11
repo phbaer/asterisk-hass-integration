@@ -53,9 +53,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         
         if sip_loaded and pjsip_loaded:
             _LOGGER.debug("Both SIP and PJSIP loaded. Loading platforms.")
+            loop = hass.data[DOMAIN][entry.entry_id].get("event_loop")
+            if loop is None:
+                loop = asyncio.get_event_loop()
             asyncio.run_coroutine_threadsafe(
                 hass.config_entries.async_forward_entry_setups(entry, PLATFORMS),
-                hass.loop
+                loop
             )
 
     async def send_action_service(call) -> None:
@@ -95,6 +98,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         CONF_DEVICES: [],
         SIP_LOADED: False,
         PJSIP_LOADED: False,
+        "event_loop": asyncio.get_event_loop(),
     }
     hass.services.async_register(DOMAIN, "send_action", send_action_service)
 
